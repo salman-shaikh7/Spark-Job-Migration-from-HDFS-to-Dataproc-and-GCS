@@ -157,6 +157,90 @@ We can see only we only added location changes their.
 Run the Entire Notebook "***De-couple-storage.ipynb***".
 
 
+## Task 3. Deploy Spark jobs : Optimize Spark jobs to run on Job specific clusters
+
+
+Now we will create a standalone Python file, that can be deployed as a Cloud Dataproc Job, that will perform the same functions as this notebook. 
+
+We will use *add magic* commands to the Python cells in a copy of this notebook to write the cell contents out to a file. 
+
+We will also add an input parameter handler to set the storage bucket location when the Python script is called to make the code more portable.
+
+
+### STEP 1 : Test Automation from Jupyter Notebook
+You now test that the PySpark code runs successfully as a file by calling the local copy from inside the notebook, passing in a parameter to identify the storage bucket you created earlier that stores the input data for this job. The same bucket will be used to store the report data files produced by the script.
+
+Refer Code File name : **PySpark-analysis-file.ipynb**
+
+In this notbook we ran job from jupyter notbook by creating .py python file from jupyter notebook.
+
+### STEP 2 : Run the Analysis Job from Cloud Shell.
+
+Now we will run this job from cloud shell
+
+copy the Python script from Cloud Storage so you can run it as a Cloud Dataproc Job
+
+```bash
+gcloud storage cp gs://$PROJECT_ID/sparktodp/spark_analysis.py spark_analysis.py
+```
+
+Create a launch script:
+
+```bash
+nano submit_onejob.sh
+```
+
+```bash
+#!/bin/bash
+gcloud dataproc jobs submit pyspark \
+       --cluster sparktodp \
+       --region REGION \
+       spark_analysis.py \
+       -- --bucket=$1
+```
+
+Make the script executable:
+```bash
+chmod +x submit_onejob.sh
+```
+
+Launch the PySpark Analysis job:
+```bash
+./submit_onejob.sh $PROJECT_ID
+```
+
+```
+#!/bin/bash
+gcloud dataproc jobs submit pyspark \
+       --cluster sparktodp \
+       --region REGION \
+       spark_analysis.py \
+       -- --bucket=$1
+```
+
+Make the script executable:
+
+```bash
+chmod +x submit_onejob.sh
+
+```
+
+Launch the PySpark Analysis job
+
+```bash
+./submit_onejob.sh $PROJECT_ID
+```
+We can job sucessfully launched.
+
+![alt text](image.png)
+
+
+
+
+
+
+
+
 
 
 
