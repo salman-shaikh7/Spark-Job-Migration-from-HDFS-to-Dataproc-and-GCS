@@ -232,7 +232,7 @@ Launch the PySpark Analysis job
 ```
 We can job sucessfully launched.
 
-![alt text](image.png)
+![alt text](/screenshots/image.png)
 
 
 
