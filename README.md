@@ -1,5 +1,7 @@
 # Spark Job Migration from HDFS-to-Dataproc and GCS.
 
+![alt text](screenshots/flowchart.webp)
+
 Overview
 In project we will migrate Apache Spark code to Cloud Dataproc. 
 
